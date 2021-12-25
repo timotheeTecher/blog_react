@@ -1,0 +1,18 @@
+.question {
+  margin: 25px 0;
+}
+
+.button {
+  margin: 0 5px 20px 5px;
+  padding: 10px 15px;
+  background-color: #FF7F3F;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #35589A;
+}

@@ -6,7 +6,7 @@ import classes from './NavigationItem.module.css';
 const NavigationItem = props => {
   return (
     <li className={classes.NavigationItem}>
-      <NavLink to={props.to} className={({isActive}) => (isActive ? classes.active : null)} >{props.children}</NavLink>
+      <NavLink to={props.to} className={({isActive}) => (isActive ? classes.active : null)}>{props.children}</NavLink>
     </li>
   );
 }
