@@ -10,6 +10,7 @@ import Home from './Containers/Home/Home';
 import Articles from './Containers/Articles/Articles';
 import Article from './Containers/Articles/Article/Article';
 import Contact from './Containers/Contact/Contact';
+import Add from "./Containers/Admin/Add/Add";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
               <Route path="telephone" element={<p>Téléphone</p>}/>            
             </Route>
             <Route path={routes.ARTICLES + "/:id"} element={<Article/>}/>
+            <Route path={routes.ADD} element={<Add/>}/>
             <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </Layout>

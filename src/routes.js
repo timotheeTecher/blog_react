@@ -1,7 +1,8 @@
 const routes = {
   HOME: "/",
   ARTICLES: "/articles",
-  CONTACT: "/contact"
+  CONTACT: "/contact",
+  ADD: "/admin/ajouter"
 }
 
 export default routes;
