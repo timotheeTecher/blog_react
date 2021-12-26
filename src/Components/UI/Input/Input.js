@@ -6,6 +6,12 @@ const Input = props => {
   
   //Variables
   let inputElement;
+  const inputClasses = [];
+
+  if (!props.isValid && props.focused) {
+    inputClasses.push(classes.invalid);
+  }
+
   switch (props.type) {
     case "input": 
       inputElement = (
@@ -14,6 +20,7 @@ const Input = props => {
           id={props.id}
           value={props.value}
           onChange={props.changed}
+          className={inputClasses}
         />
       );
       break;
@@ -22,7 +29,9 @@ const Input = props => {
         <textarea
           id={props.id}
           value={props.value} 
-          onChange={props.changed}>
+          onChange={props.changed}
+          className={inputClasses}
+        >
         </textarea>
       );
       break;
@@ -49,6 +58,7 @@ const Input = props => {
     <div className={classes.Input}>
       <label htmlFor={props.id}>{props.label}</label>
       {inputElement}
+      {!props.isValid ? <span>{props.invalidMessage}</span> : null}
     </div>
   );
 }

@@ -19,3 +19,14 @@
   font-family: Arial, Helvetica, sans-serif;
   resize: none;
 }
+
+.Input span {
+  display: block;
+  margin-top: 4px;
+  color: #e45454;
+}
+
+.invalid {
+  background-color: #f3c7c7;
+  border: 1px solid #e45454;
+}

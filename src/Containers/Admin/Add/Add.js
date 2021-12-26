@@ -20,8 +20,10 @@ const Add = () => {
       validation: {
         required: true,
         minLength: 5,
-        maxLength: 85
-      }
+        maxLength: 85,
+        invalidMessage: ""
+      },
+      focused: false,
     },
     contents: {
       elementType: "textarea",
@@ -30,8 +32,10 @@ const Add = () => {
       label: "Contenu de l'article",
       isValid: false,
       validation: {
-        required: true
-      }
+        required: true,
+        invalidMessage: ""
+      },
+      focused: false,
     },
     author: {
       elementType: "input",
@@ -43,8 +47,10 @@ const Add = () => {
       label: "Auteur",
       isValid: false,
       validation: {
-        required: true
-      }
+        required: true,
+        invalidMessage: ""
+      },
+      focused: false,
     },
     draft: {
       elementType: "select",
@@ -68,12 +74,24 @@ const Add = () => {
     let isValid = true;
     if (rules.required) {
       isValid = value.trim() !== "" && isValid;
+      if (!isValid) {
+        rules.invalidMessage = "Ce champ de texte doit être rempli !";
+        return isValid;
+      }
     }
     if (rules.minLength) {
       isValid = value.length >= rules.minLength && isValid;
+      if (!isValid) {
+        rules.invalidMessage = `Ce champ doit contenir au minimum ${rules.minLength} caractères`;
+        return isValid;
+      }
     }
     if (rules.maxLength) {
       isValid = value.length <= rules.maxLength && isValid;
+      if (!isValid) {
+        rules.invalidMessage = `Ce champ doit contenir au maximum ${rules.maxLength} caractères`;
+        return isValid;
+      }
     }
     return isValid;
   }
@@ -82,6 +100,7 @@ const Add = () => {
     const newInputs = {...inputs};
     newInputs[id].value = event.target.value;
     newInputs[id].isValid = checkValidity(newInputs[id].value, newInputs[id].validation);
+    newInputs[id].focused = true;
     setInputs(newInputs);
     let formIsValid = true;
     for (let input in newInputs) {
@@ -113,6 +132,9 @@ const Add = () => {
           value={formElement.config.value}
           label={formElement.config.label}
           type={formElement.config.elementType}
+          isValid={formElement.config.isValid}
+          invalidMessage={formElement.config.validation.invalidMessage}
+          focused={formElement.config.focused}
           config={formElement.config.elementConfig}
           changed={e => inputChangedHandler(e, formElement.id)}
         />
