@@ -1,7 +1,7 @@
 //Libraries
 import React from "react";
 import classes from './Navigation.module.css';
-import routes from "../../../routes";
+import routes from "../../../config/routes";
 
 //Components
 import NavigationItem from "./NavigationItem/NavigationItem";

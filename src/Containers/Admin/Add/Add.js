@@ -1,6 +1,9 @@
 //Libraries
 import React, { useState } from "react";
 import classes from "./Add.module.css";
+import axios from "../../../config/axios-firebase";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../config/routes";
 
 //Components
 import Input from "../../../Components/UI/Input/Input";
@@ -23,9 +26,23 @@ const Add = () => {
         maxLength: 85,
         invalidMessage: ""
       },
-      focused: false,
+      focused: false
     },
-    contents: {
+    catchphrase: {
+      elementType: "textarea",
+      elementConfig: {},
+      value:"",
+      label: "Accroche de l'article",
+      isValid: false,
+      validation: {
+        required: true,
+        minLength: 10,
+        maxLength: 200,
+        invalidMessage: ""
+      },
+      focused: false
+    },
+    content: {
       elementType: "textarea",
       elementConfig: {},
       value:"",
@@ -35,7 +52,7 @@ const Add = () => {
         required: true,
         invalidMessage: ""
       },
-      focused: false,
+      focused: false
     },
     author: {
       elementType: "input",
@@ -50,7 +67,7 @@ const Add = () => {
         required: true,
         invalidMessage: ""
       },
-      focused: false,
+      focused: false
     },
     draft: {
       elementType: "select",
@@ -60,7 +77,7 @@ const Add = () => {
           {value: false, displayValue: "Publié"}
         ]
       },
-      value: "",
+      value: true,
       label: "État",
       isValid: true,
       validation: {}
@@ -68,26 +85,28 @@ const Add = () => {
   });
 
   const [formValidity, setFormValidity] = useState(false);
+  
+  const navigation = useNavigate();
 
   //Methods 
   const checkValidity = (value, rules) => {
     let isValid = true;
     if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
+      isValid = value.trim() !== "";
       if (!isValid) {
         rules.invalidMessage = "Ce champ de texte doit être rempli !";
         return isValid;
       }
     }
     if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
+      isValid = value.length >= rules.minLength;
       if (!isValid) {
         rules.invalidMessage = `Ce champ doit contenir au minimum ${rules.minLength} caractères`;
         return isValid;
       }
     }
     if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
+      isValid = value.length <= rules.maxLength;
       if (!isValid) {
         rules.invalidMessage = `Ce champ doit contenir au maximum ${rules.maxLength} caractères`;
         return isValid;
@@ -111,7 +130,20 @@ const Add = () => {
 
   const submittedFormHandler = event => {
     event.preventDefault();
-    console.log("test");
+    const newArticle = { 
+      title: inputs.title.value,
+      content: inputs.content.value,
+      author: inputs.author.value,
+      draft: inputs.draft.value,
+      catchphrase: inputs.catchphrase.value,
+      date: Date.now()
+    }
+    axios.post("/articles.json", newArticle).then(response => {
+        console.log(response);
+        navigation(routes.ARTICLES, {replace: true});
+      }).catch(error => {
+        console.log(error);
+      });
   }
 
   //Variables 
@@ -140,7 +172,7 @@ const Add = () => {
         />
       ))}
       <div className={classes.submit}>
-        <input type="submit" value="Ajouter" disabled={!formValidity}/> 
+        <input type="submit" value="Ajouter un article" disabled={!formValidity}/> 
       </div>
     </form>
   );

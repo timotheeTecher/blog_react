@@ -20,6 +20,10 @@
   resize: none;
 }
 
+.content {
+  height: 400px;
+}
+
 .Input span {
   display: block;
   margin-top: 4px;
@@ -27,6 +31,5 @@
 }
 
 .invalid {
-  background-color: #f3c7c7;
-  border: 1px solid #e45454;
+  outline: 1px solid #e45454;
 }

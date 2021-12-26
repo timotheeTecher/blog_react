@@ -20,17 +20,20 @@ const Input = props => {
           id={props.id}
           value={props.value}
           onChange={props.changed}
-          className={inputClasses}
+          className={inputClasses.join(" ")}
         />
       );
       break;
     case "textarea":
+      if (props.id === "content") {
+        inputClasses.push(classes.content);
+      }
       inputElement = (
         <textarea
           id={props.id}
           value={props.value} 
           onChange={props.changed}
-          className={inputClasses}
+          className={inputClasses.join(" ")}
         >
         </textarea>
       );
