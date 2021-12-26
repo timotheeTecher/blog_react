@@ -23,7 +23,7 @@ const App = () => {
               <Route path="email" element={<p>Email</p>}/>
               <Route path="telephone" element={<p>Téléphone</p>}/>            
             </Route>
-            <Route path={routes.ARTICLES + "/:id"} element={<Article/>}/>
+            <Route path={routes.ARTICLES + "/:slug"} element={<Article/>}/>
             <Route path={routes.ADD} element={<Add/>}/>
             <Route path="*" element={<h1>404</h1>} />
         </Routes>

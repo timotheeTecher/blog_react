@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "../../config/axios-firebase";
 import { Link } from "react-router-dom";
 import routes from "../../config/routes";
+import classes from "./Home.module.css";
 
 //Components
 import DisplayedArticles from "../../Components/DisplayedArticles/DisplayedArticles";
@@ -32,7 +33,7 @@ const Home = () => {
     <>
       <h1>Accueil</h1>
       <DisplayedArticles articles={articles}/>
-      <Link to={routes.ARTICLES}>Voir toules articles</Link>
+      <Link className={classes.link} to={routes.ARTICLES}>Voir toules articles</Link>
     </>
   );
 }
