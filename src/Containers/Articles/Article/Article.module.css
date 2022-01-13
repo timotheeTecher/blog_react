@@ -9,7 +9,7 @@
 }
 
 .author {
-  margin: 20px 0 50px 0;
+  margin: 10px 0 50px 0;
   padding: 15px;
   background-color: #f1f1f1;
   border-radius: 4px;
@@ -18,3 +18,35 @@
 .author span {
   margin-left: 15px;
 }
+
+.button {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.button button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button .delete {
+  background-color: #f14c4c;
+}
+
+.button .delete:hover {
+  background-color: #a81b1b;
+}
+
+.button .edit {
+  margin-right: 10px;
+  background-color: #FF7F3F;
+}
+
+.button .edit:hover {
+  background-color: #cc6735;
+}
+

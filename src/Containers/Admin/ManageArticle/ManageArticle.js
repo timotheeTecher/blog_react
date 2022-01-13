@@ -1,14 +1,17 @@
 //Libraries
 import React, { useState } from "react";
-import classes from "./Add.module.css";
+import classes from "./ManageArticle.module.css";
 import axios from "../../../config/axios-firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import routes from "../../../config/routes";
 
 //Components
 import Input from "../../../Components/UI/Input/Input";
 
-const Add = () => {
+const ManageArticle = (props) => {
+
+  const { state } = useLocation();
+
   //States
   const [inputs, setInputs] = useState({
     title: {
@@ -17,9 +20,9 @@ const Add = () => {
         type: "text",
         placeholder: "Titrle de l'article"
       },
-      value: "",
+      value: state && state.article ? state.article.title : "",
       label: "Titre",
-      isValid: false,
+      isValid: state && state.article ? true : false,
       validation: {
         required: true,
         minLength: 5,
@@ -31,9 +34,9 @@ const Add = () => {
     catchphrase: {
       elementType: "textarea",
       elementConfig: {},
-      value:"",
+      value: state && state.article ? state.article.catchphrase : "",
       label: "Accroche de l'article",
-      isValid: false,
+      isValid: state && state.article ? true : false,
       validation: {
         required: true,
         minLength: 10,
@@ -45,9 +48,9 @@ const Add = () => {
     content: {
       elementType: "textarea",
       elementConfig: {},
-      value:"",
+      value: state && state.article ? state.article.content : "",
       label: "Contenu de l'article",
-      isValid: false,
+      isValid: state && state.article ? true : false,
       validation: {
         required: true,
         invalidMessage: ""
@@ -60,9 +63,9 @@ const Add = () => {
         type: "text",
         placeholder: "Auteur de l'article"
       },
-      value: "",
+      value: state && state.article ? state.article.author : "",
       label: "Auteur",
-      isValid: false,
+      isValid: state && state.article ? true : false,
       validation: {
         required: true,
         invalidMessage: ""
@@ -77,14 +80,14 @@ const Add = () => {
           {value: false, displayValue: "Publié"}
         ]
       },
-      value: true,
+      value: state && state.article ? state.article.draft : true,
       label: "État",
       isValid: true,
       validation: {}
     }
   });
 
-  const [formValidity, setFormValidity] = useState(false);
+  const [formValidity, setFormValidity] = useState(state && state.article ? true : false);
   
   const navigation = useNavigate();
 
@@ -162,12 +165,21 @@ const Add = () => {
       slug: slug
     }
     
-    axios.post("/articles.json", newArticle).then(response => {
+    if (state && state.article) {
+      axios.put("/articles/" + state.article.id + ".json", newArticle).then(response => {
+        console.log(response);
+        navigation(routes.ARTICLES + "/" + newArticle.slug, {replace: true});
+      }).catch(error => {
+        console.log(error);
+      });
+    } else {
+      axios.post("/articles.json", newArticle).then(response => {
         console.log(response);
         navigation(routes.ARTICLES, {replace: true});
       }).catch(error => {
         console.log(error);
       });
+    }
   }
 
   //Variables 
@@ -196,17 +208,21 @@ const Add = () => {
         />
       ))}
       <div className={classes.submit}>
-        <input type="submit" value="Ajouter un article" disabled={!formValidity}/> 
+        <input type="submit" value={state && state.article ? "Modifier l'article" : "Ajouter un article"} disabled={!formValidity}/> 
       </div>
     </form>
   );
 
   return (
     <div className="container">
-      <h1>Ajouter un nouvel article</h1>
+      {state && state.article ? 
+        <h1>Modifier</h1>
+        :
+        <h1>Ajouter un nouvel article</h1>
+      }
       {form}
     </div>
   );
 }
 
-export default Add;
+export default ManageArticle;

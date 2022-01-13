@@ -10,7 +10,8 @@ import Home from './Containers/Home/Home';
 import Articles from './Containers/Articles/Articles';
 import Article from './Containers/Articles/Article/Article';
 import Contact from './Containers/Contact/Contact';
-import Add from "./Containers/Admin/Add/Add";
+import Add from "./Containers/Admin/ManageArticle/ManageArticle";
+import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
 
 const App = () => {
   return (
@@ -24,7 +25,7 @@ const App = () => {
               <Route path="telephone" element={<p>Téléphone</p>}/>            
             </Route>
             <Route path={routes.ARTICLES + "/:slug"} element={<Article/>}/>
-            <Route path={routes.ADD} element={<Add/>}/>
+            <Route path={routes.MANAGE_ARTICLE} element={<ManageArticle/>}/>
             <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </Layout>
