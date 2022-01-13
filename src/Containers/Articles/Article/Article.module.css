@@ -43,10 +43,17 @@
 
 .button .edit {
   margin-right: 10px;
-  background-color: #FF7F3F;
+  background-color: #35589A;
 }
 
 .button .edit:hover {
-  background-color: #cc6735;
+  background-color: #2a467a;
 }
 
+.badge {
+  font-size: 0.9rem;
+  background-color: #c0c0c0;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 5px 10px;
+}

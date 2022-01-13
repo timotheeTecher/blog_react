@@ -10,7 +10,6 @@ import Home from './Containers/Home/Home';
 import Articles from './Containers/Articles/Articles';
 import Article from './Containers/Articles/Article/Article';
 import Contact from './Containers/Contact/Contact';
-import Add from "./Containers/Admin/ManageArticle/ManageArticle";
 import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
 
 const App = () => {
@@ -21,8 +20,8 @@ const App = () => {
             <Route path={routes.HOME} element={<Home/>} />
             <Route path={routes.ARTICLES} element={<Articles/>} />
             <Route path={routes.CONTACT} element={<Contact/>}>
-              <Route path="email" element={<p>Email</p>}/>
-              <Route path="telephone" element={<p>Téléphone</p>}/>            
+              <Route path="email" element={<p>john.doe@gmail.com</p>}/>
+              <Route path="telephone" element={<p>06 92 20 96 68</p>}/>            
             </Route>
             <Route path={routes.ARTICLES + "/:slug"} element={<Article/>}/>
             <Route path={routes.MANAGE_ARTICLE} element={<ManageArticle/>}/>

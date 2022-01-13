@@ -18,6 +18,11 @@ const Article = () => {
   // componentDidMount
   useEffect(() => {
     axios.get(`/articles.json?orderBy="slug"&equalTo="${slug}"`).then(response => {
+
+      if (Object.keys(response.data).length === 0) {
+        navigation(routes.HOME, {replace: false});
+      }
+
       for (const key in response.data) {
         setArticle({
           ...response.data[key],
@@ -61,6 +66,7 @@ const Article = () => {
       <div className={classes.author}>
         <b>{article.author}</b>
         <span>Publié le {date}</span>
+        {article.draft === true ? <span className={classes.badge}>Brouillon</span> : null}
       </div>
     </div>
   );

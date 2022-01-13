@@ -12,18 +12,27 @@ const Articles = () => {
   //ComponentDidMount
   useEffect(() => {
     axios.get("/articles.json").then(response => {
-        const articlesArray = [];
-        for (let key in response.data) {
-          articlesArray.push({
-            ...response.data[key],
-            id: key
-          });
-        }
-        articlesArray.reverse();
-        setArticles(articlesArray);
-      }).catch(error => {
-        console.log(error);
-      })
+
+      let articlesArray = [];
+
+      for (let key in response.data) {
+        articlesArray.push({
+          ...response.data[key],
+          id: key
+        });
+      }
+
+      //Chronology
+      articlesArray.reverse();
+
+      //Sort
+      articlesArray = articlesArray.filter(article => article.draft === "false");
+
+    
+      setArticles(articlesArray);
+    }).catch(error => {
+      console.log(error);
+    })
   }, []);
 
   return (

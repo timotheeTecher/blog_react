@@ -2,7 +2,6 @@
 import React from "react";
 import classes from "./Contact.module.css";
 import { Outlet, useNavigate } from "react-router-dom";
-import { queries } from "@testing-library/react";
 
 const Contact = () => {
   const navigate = useNavigate();

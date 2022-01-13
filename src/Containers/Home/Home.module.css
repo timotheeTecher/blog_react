@@ -1,8 +1,10 @@
 .link {
-  width: 160px;
+  width: 180px;
+  height: 45px;
   margin: auto;
-  padding: 13px 0;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #FF7F3F;
   border: none;
   border-radius: 4px;
@@ -13,4 +15,8 @@
 
 .link:hover {
   background-color: #35589A;
+}
+
+.arrow {
+  margin-top: 2px;
 }
