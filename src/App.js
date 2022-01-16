@@ -11,6 +11,7 @@ import Articles from './Containers/Articles/Articles';
 import Article from './Containers/Articles/Article/Article';
 import Contact from './Containers/Contact/Contact';
 import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
+import Authentification from './Containers/Security/Authentification/Authentification';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             </Route>
             <Route path={routes.ARTICLES + "/:slug"} element={<Article/>}/>
             <Route path={routes.MANAGE_ARTICLE} element={<ManageArticle/>}/>
+            <Route path={routes.AUTHENTIFICATION} element={<Authentification/>}/>
             <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </Layout>

@@ -1,0 +1,38 @@
+.form {
+  width: 80%;
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #dbecf1;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.submit {
+  margin-top: 30px;
+  text-align: right;
+}
+
+.submit button {
+  padding: 10px 15px;
+  background-color: #FF7F3F;
+  color: #FFF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit button:nth-of-type(1) {
+  margin-right: 10px;
+}
+
+.submit button:hover,
+.submit button:focus {
+  background-color: #35589A;
+}
+
+.submit button:disabled {
+  opacity: .3;
+  background-color: #FF7F3F;
+  cursor: not-allowed;
+}
