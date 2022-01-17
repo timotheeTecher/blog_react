@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import routes from "../../../config/routes";
 import { checkValidity } from "../../../shared/utlity";
+import fire from "../../../config/firebase";
 import classes from "./Authentification.module.css";
 
 //Components
@@ -38,6 +39,7 @@ const Authentification = () => {
       isValid: false,
       validation: {
         required: true,
+        minLength: 6,
         invalidMessage: ""
       },
       focused: false
@@ -68,9 +70,14 @@ const Authentification = () => {
       password: inputs.password.value
     }
 
-    console.log(user);
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .catch(error => {
+        console.log(error);
+      });
 
-    navigation(routes.HOME, {replace: false});
+    // navigation(routes.HOME, {replace: false});
   }
 
   const loginClickedHandler = () => {
