@@ -1,5 +1,7 @@
 //Libraries
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../config/routes";
 import { checkValidity } from "../../../shared/utlity";
 import classes from "./Authentification.module.css";
 
@@ -44,6 +46,8 @@ const Authentification = () => {
 
   const [formValidity, setFormValidity] = useState(false);
 
+  const navigation = useNavigate();
+
   //Methods 
   const inputChangedHandler = (event, id) => {
     const newInputs = {...inputs};
@@ -58,6 +62,33 @@ const Authentification = () => {
     setFormValidity(formIsValid);
   };
 
+  const registerClickedHandler = () => {
+    const user = {
+      email: inputs.email.value,
+      password: inputs.password.value
+    }
+
+    console.log(user);
+
+    navigation(routes.HOME, {replace: false});
+  }
+
+  const loginClickedHandler = () => {
+    const user = {
+      email: inputs.email.value,
+      password: inputs.password.value
+    }
+
+    console.log(user);
+
+    navigation(routes.HOME, {replace: false});
+  }
+
+  const formHandler = event => {
+    event.preventDefault();
+  }
+
+
   //Variables 
   const formElementsArray = [];
   for (let key in inputs) {
@@ -68,7 +99,7 @@ const Authentification = () => {
   }
 
   let form = (
-    <form>
+    <form onSubmit={e => formHandler(e)}>
       {formElementsArray.map(formElement => (
         <Input 
           key={formElement.id}
@@ -84,8 +115,8 @@ const Authentification = () => {
         />
       ))}
       <div className={classes.submit}>
-        <button>Inscription</button>
-        <button>Connexion</button>
+        <button onClick={registerClickedHandler} disabled={!formValidity}>Inscription</button>
+        <button onClick={loginClickedHandler} disabled={!formValidity}>Connexion</button>
       </div>
     </form>
   );
