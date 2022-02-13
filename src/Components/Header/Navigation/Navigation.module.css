@@ -2,3 +2,16 @@
   display: flex;
   list-style-type: none;
 }
+
+.logout {
+  padding: 5px 10px;
+  border: none;
+  background: #fb743e;
+  color: #FFF;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #c54a1a;
+}

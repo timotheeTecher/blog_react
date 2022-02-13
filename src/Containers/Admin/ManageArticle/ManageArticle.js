@@ -5,6 +5,7 @@ import axios from "../../../config/axios-firebase";
 import { useNavigate, useLocation } from "react-router-dom";
 import routes from "../../../config/routes";
 import { checkValidity } from "../../../shared/utlity";
+import fire from "../../../config/firebase";
 
 //Components
 import Input from "../../../Components/UI/Input/Input";
@@ -139,22 +140,26 @@ const ManageArticle = (props) => {
       date: Date.now(),
       slug: slug
     }
-    
-    if (state && state.article) {
-      axios.put("/articles/" + state.article.id + ".json", newArticle).then(response => {
-        console.log(response);
-        navigation(routes.ARTICLES + "/" + newArticle.slug, {replace: true});
-      }).catch(error => {
-        console.log(error);
-      });
-    } else {
-      axios.post("/articles.json", newArticle).then(response => {
-        console.log(response);
-        navigation(routes.ARTICLES, {replace: true});
-      }).catch(error => {
-        console.log(error);
-      });
-    }
+
+    const token = fire.auth().currentUser.getIdToken().then(token => {
+      if (state && state.article) {
+        axios.put("/articles/" + state.article.id + ".json?auth=" + token, newArticle).then(response => {
+          console.log(response);
+          navigation(routes.ARTICLES + "/" + newArticle.slug, {replace: true});
+        }).catch(error => {
+          console.log(error);
+        });
+      } else {
+        axios.post("/articles.json?auth=" + token, newArticle).then(response => {
+          console.log(response);
+          navigation(routes.ARTICLES, {replace: true});
+        }).catch(error => {
+          console.log(error);
+        });
+      }
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   //Variables 

@@ -45,8 +45,9 @@ const Authentification = () => {
       focused: false
     }
   });
-
   const [formValidity, setFormValidity] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   const navigation = useNavigate();
 
@@ -73,11 +74,19 @@ const Authentification = () => {
     fire
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
+      .then(response => {
+        navigation(routes.HOME, {replace: false});
+      })
       .catch(error => {
-        console.log(error);
-      });
-
-    // navigation(routes.HOME, {replace: false});
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            setEmailError(true)
+            break;
+          default:
+            break;
+        }
+      }
+    );
   }
 
   const loginClickedHandler = () => {
@@ -86,9 +95,24 @@ const Authentification = () => {
       password: inputs.password.value
     }
 
-    console.log(user);
-
-    navigation(routes.HOME, {replace: false});
+    fire
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then(response => {
+        navigation(routes.HOME, {replace: false});
+      })
+      .catch(error => {
+        switch (error.code) {
+          case "auth/invalide-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found":
+            setLoginError(true)
+            break;
+          default:
+            break;
+        }      
+      }
+    );
   }
 
   const formHandler = event => {
@@ -132,6 +156,8 @@ const Authentification = () => {
     <>
       <h1>Authentification</h1>
       <div className={classes.form}>
+        {loginError ? <div className={classes.alert}>Adresse mail invalide !</div> : null}
+        {emailError ? <div className={classes.alert}>Cette adresse email est déjà utilisée !</div> : null}
         {form}
       </div>
     </>

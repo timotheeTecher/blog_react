@@ -5,7 +5,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import classes from "./Article.module.css";
 import routes from "../../../config/routes";
 
-const Article = () => {
+const Article = props => {
   //State
   const [article , setArticle] = useState({});
 
@@ -39,11 +39,15 @@ const Article = () => {
 
   //Methods
   const deleteClickedHandler = () => {
-    axios.delete(`/articles/${article.id}.json`).then(response => {
-      navigation(routes.HOME, {replace: true});
+    props.user.getIdToken().then(token => {
+      axios.delete(`/articles/${article.id}.json?auth=${token}`).then(response => {
+        navigation(routes.HOME, {replace: true});
+      }).catch(error => {
+        console.log(error);
+      });
     }).catch(error => {
       console.log(error);
-    })
+    });
   }
 
   return (
@@ -55,12 +59,16 @@ const Article = () => {
           {article.catchphrase}
         </div>
         {article.content}
-        <div className={classes.button}>
-          <Link to={routes.MANAGE_ARTICLE} state={{article: article}}>
-            <button className={classes.edit} >Modifier</button>
-          </Link>
-          <button className={classes.delete} onClick={deleteClickedHandler}>Supprimer l'article</button>
-        </div>
+        { props.user ?
+          <div className={classes.button}>
+            <Link to={routes.MANAGE_ARTICLE} state={{article: article}}>
+              <button className={classes.edit}>Modifier</button>
+            </Link>
+            <button className={classes.delete} onClick={deleteClickedHandler}>Supprimer l'article</button>
+          </div>
+          :
+          null
+        }
       </div>
 
       <div className={classes.author}>

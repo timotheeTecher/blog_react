@@ -36,3 +36,11 @@
   background-color: #FF7F3F;
   cursor: not-allowed;
 }
+
+.alert {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #ee9b9b;
+  border: 1px solid #f87C7C;
+  border-radius: 4px;
+}
